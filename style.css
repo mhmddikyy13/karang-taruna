@@ -1,0 +1,64 @@
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --card-bg: #f9f9f9;
+  --input-bg: #ffffff;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: sans-serif;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+input, select {
+  padding: 0.5rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Dark mode styles */
+body.dark {
+  --bg: #121212;
+  --text: #ffffff;
+  --card-bg: #1e1e1e;
+  --input-bg: #1c1c1c;
+}
+
+/* Tombol Dark/Light Mode */
+#toggleMode {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  float: right;
+  position: relative;     /* ✅ DITAMBAHKAN */
+  z-index: 999;           /* ✅ DITAMBAHKAN */
+  transition: background 0.3s, color 0.3s;
+}
+
+
+
+#toggleMode:hover {
+  background-color: var(--text);
+  color: var(--bg);
+}

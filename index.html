@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Anggota Karang Taruna</title>
+  <link rel="manifest" href="app.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#4CAF50" />
+</head>
+<body>
+
+  <!-- ✅ Tombol Dark/Light Mode dipindah ke paling atas -->
+  <button id="toggleMode" style="margin-bottom: 1rem;">🌙 Dark Mode</button>
+
+  <h1>Data Anggota Karang Taruna</h1>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Cari nama..." />
+    <select id="filterStatus">
+      <option value="">Semua</option>
+      <option value="sudah">Sudah Bayar</option>
+      <option value="belum">Belum Bayar</option>
+    </select>
+  </div>
+
+  <form id="formTambah">
+    <input type="text" id="namaBaru" placeholder="Nama anggota baru" required />
+    <input type="number" id="tabunganBaru" placeholder="Tabungan awal" />
+    <select id="kasBaru">
+      <option value="belum">Belum Bayar</option>
+      <option value="sudah">Sudah Bayar</option>
+    </select>
+    <button type="submit">➕ Tambah</button>
+  </form>
+
+  <div id="anggota-list"></div>
+
+  <button id="installButton" style="display:none;">📲 Install Aplikasi</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
