@@ -60,10 +60,11 @@ if (!localStorage.getItem("anggota-karang")) {
     { nama: "Putri", kas: "belum", tabungan: 0 },
     { nama: "Nadia", kas: "belum", tabungan: 0 }
   ];
+
+  dataAwal.sort((a, b) => a.nama.localeCompare(b.nama));
   localStorage.setItem("anggota-karang", JSON.stringify(dataAwal));
 }
 
-// ✅ Ambil dari localStorage atau mulai dengan array kosong
 let anggota = JSON.parse(localStorage.getItem("anggota-karang")) || [];
 
 const anggotaList = document.getElementById("anggota-list");
@@ -71,16 +72,16 @@ const searchInput = document.getElementById("search");
 const filterSelect = document.getElementById("filterStatus");
 const formTambah = document.getElementById("formTambah");
 
-// ✅ Simpan data ke localStorage
 function simpanData() {
   localStorage.setItem("anggota-karang", JSON.stringify(anggota));
 }
 
-// ✅ Tampilkan daftar anggota
 function renderList() {
   const keyword = searchInput.value.toLowerCase();
   const filter = filterSelect.value;
   anggotaList.innerHTML = "";
+
+  anggota.sort((a, b) => a.nama.localeCompare(b.nama));
 
   anggota
     .filter(a =>
@@ -132,7 +133,6 @@ function renderList() {
   });
 }
 
-// ➕ Tambah anggota baru
 formTambah.onsubmit = (e) => {
   e.preventDefault();
   const nama = document.getElementById("namaBaru").value.trim();
@@ -149,7 +149,43 @@ searchInput.oninput = renderList;
 filterSelect.onchange = renderList;
 renderList();
 
-// ✅ PWA - tombol install
+// ✅ Tombol Ekspor CSV
+document.getElementById("btnExport").onclick = () => {
+  const rows = [["Nama", "Kas", "Tabungan"], ...anggota.map(a => [a.nama, a.kas, a.tabungan])];
+  const csvContent = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "anggota-karang.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+// ✅ Tombol Impor JSON
+document.getElementById("btnImport").onclick = () => {
+  const fileInput = document.getElementById("importFile");
+  const file = fileInput.files[0];
+  if (!file) return alert("Pilih file JSON terlebih dahulu.");
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!Array.isArray(imported) || !imported[0].nama) throw "Format data tidak valid.";
+      anggota = imported;
+      simpanData();
+      renderList();
+      alert("Data berhasil diimpor!");
+    } catch (err) {
+      alert("Gagal impor: " + err);
+    }
+  };
+  reader.readAsText(file);
+};
+
+// ✅ PWA
 let deferredPrompt;
 const installBtn = document.getElementById("installButton");
 
@@ -167,14 +203,13 @@ installBtn.addEventListener("click", async () => {
   deferredPrompt = null;
 });
 
-// ✅ Daftarkan Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').then(() => {
     console.log('Service Worker registered');
   });
 }
 
-// ✅ Toggle Dark/Light Mode — AMAN
+// ✅ Dark/Light Mode
 window.addEventListener("DOMContentLoaded", () => {
   const toggleBtn = document.getElementById("toggleMode");
   const savedMode = localStorage.getItem("mode");

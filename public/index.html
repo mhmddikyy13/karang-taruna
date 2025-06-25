@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <!-- ✅ Tombol Dark/Light Mode dipindah ke paling atas -->
+  <!-- ✅ Tombol Dark/Light Mode -->
   <button id="toggleMode" style="margin-bottom: 1rem;">🌙 Dark Mode</button>
 
   <h1>Data Anggota Karang Taruna</h1>
@@ -33,6 +33,13 @@
     </select>
     <button type="submit">➕ Tambah</button>
   </form>
+
+  <!-- ✅ Fitur Ekspor dan Impor -->
+  <div style="margin-top: 1rem;">
+    <button id="btnExport" style="background: green; color: white; padding: 5px 10px;">📤 Ekspor CSV</button>
+    <input type="file" id="importFile" accept=".json" style="margin-left:10px;">
+    <button id="btnImport" style="background: orange; color: white; padding: 5px 10px;">📥 Impor JSON</button>
+  </div>
 
   <div id="anggota-list"></div>
 
