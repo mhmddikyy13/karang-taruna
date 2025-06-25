@@ -47,13 +47,15 @@
 
   <script src="app.js"></script>
 
-  <!-- ✅ Tambahan: Registrasi Service Worker + Tombol Install PWA -->
+  <!-- ✅ Tambahan Script Service Worker + Debug Install -->
   <script>
+    console.log('✅ Script PWA aktif');
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('✅ Service worker registered', reg))
-          .catch(err => console.error('❌ Service worker failed:', err));
+          .then(reg => console.log('✅ Service worker registered:', reg))
+          .catch(err => console.error('❌ Service worker registration failed:', err));
       });
     }
 
@@ -61,6 +63,7 @@
     const installBtn = document.getElementById('installButton');
 
     window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('📦 beforeinstallprompt event fired');
       e.preventDefault();
       deferredPrompt = e;
       installBtn.style.display = 'block';
@@ -70,9 +73,9 @@
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('👍 Aplikasi diinstal');
+            console.log('🎉 Aplikasi diinstal');
           } else {
-            console.log('👎 Aplikasi batal diinstal');
+            console.log('😕 Aplikasi tidak jadi diinstal');
           }
           deferredPrompt = null;
         });
