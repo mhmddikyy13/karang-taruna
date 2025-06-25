@@ -1,18 +1,18 @@
 {
-  "name": "Data Anggota Karang Taruna",
-  "short_name": "Karang Taruna",
-  "start_url": "index.html",
+  "name": "Karang Taruna",
+  "short_name": "KarTar",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#f4f4f4",
+  "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "public/icons/icon-192.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "public/icons/icon-512.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
